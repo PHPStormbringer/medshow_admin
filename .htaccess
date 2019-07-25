@@ -1,0 +1,28 @@
+<IfModule mod_rewrite.c>
+ 
+  RewriteEngine On
+  RewriteBase /medshow_admin_CI_3.0.4/
+# RewriteBase /medshow_admin/
+
+  
+### Canonicalize codeigniter URLs
+ 
+# default controller
+# RewriteRule ^(main(/index)?|index(\.php)?)/?$ / [L,R=301]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php?/$1 [L]
+
+RewriteCond %{HTTP_HOST} example\.com [NC]
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ /main/productions$1 [L]
+   
+</IfModule>
+ 
+<IfModule !mod_rewrite.c>
+ 
+    # Without mod_rewrite, route 404's to the front controller
+    ErrorDocument 404 /index.php
+ 
+</IfModule>
